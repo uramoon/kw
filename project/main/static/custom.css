@@ -1,0 +1,162 @@
+@import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+
+.navbar-brand, h1, h2, h3, h4 {
+    font-family: 'Jeju Gothic';
+}
+h5 {
+    font-family: 'Jeju Gothic';
+    font-size: 18px;
+}
+body {
+    font-family: 'Nanum Gothic';
+}
+
+:root {
+    --lghred: rgb(234, 57, 77);
+    --lghblue: rgb(83, 158, 255);
+    --lghblack: rgb(122, 122, 122);
+    --lghdkgrey: rgb(75, 75, 75);
+}
+
+#backimg {
+    background-image: url("./back.png");
+    height: 336px;
+}
+#slimimg {
+    background-image: url("./slim.png");
+    height: 180px;
+}
+
+.icon_black a {
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+}
+.hover_grey a:hover, .hover_grey a:hover p {
+    text-decoration: none;
+    color:rgb(60, 62, 189);
+}
+.icon_white a, .hover_white a:hover {
+    text-decoration: none;
+    color:white;
+}
+footer li {
+    float:left; list-style:none;
+}
+
+/*
+.dropdown:hover .dropdown-menu {
+    display:block;
+    margin-top:0;
+}
+*/
+
+/* 원래 #nav 없삼 */
+nav a {
+    font-family: 'Jeju Gothic';
+}
+/* .nav-tp a {color: rgb(211, 211, 211) !important;} */
+
+nav a:hover, nav a:hover > p {color:white !important;}
+/* .nav-tp a:hover {color:white !important;} */
+
+nav .active > a, nav .active > a > p {color:white !important;}
+
+.font-small {
+    font-family: 'Nanum Gothic';
+    font-size: 14px;
+}
+
+/* for owl carousel (배경, 투명도, 자르기 등등) */
+.owl-width, .img-wrapper {background-color:rgb(19, 20, 32);}
+.owl-carousel a {color:var(--lghdkgrey);}
+.owl-carousel a:hover, #album > a:hover {
+    text-decoration: none;
+    color:var(--lghblack);
+}
+
+
+.img-wrapper img{
+    opacity: 1;
+    transition:all .5s ease;
+    -webkit-transition:all .5s ease;
+    -moz-transition:all .5s ease;
+    -ms-transition:all .5s ease;
+    -o-transition:all .5s ease;
+    vertical-align: middle;
+}
+.owl-div > a:hover img, #album a:hover img {
+    opacity: 0.6;
+    transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+    -ms-transform:scale(1.1);
+    -moz-transform:scale(1.1);
+    -o-transform:scale(1.1);
+}
+.img-wrapper{display:inline-block;overflow:hidden;}
+
+
+/*
+h1: 36
+h2: 30
+h3: 24
+h4: 18
+h5: 14
+h6: 12
+*/
+
+table {
+    font-size: 0.9em;
+}
+#divide i {
+    font-size: 5em;
+}
+
+@media screen and (max-width: 991px) {
+    h3 {
+        font-size: 1.4em;
+    }
+    p {
+        font-size: 0.9em;
+        line-height: 1.2em;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    #divide i {
+        font-size: 3.4em;
+    }
+
+    #introduce p {
+        font-size: 1.1em;
+        line-height: 1.5em;
+    }
+    table {
+        font-size: 0.8em;
+    }
+}
+
+
+#slide-fix {
+    background-image: url("./slide.png");
+}
+#pc {
+    visibility: hidden;
+}
+#mobile {
+    display: none;
+}
+
+
+@media screen and (max-width: 767px) {
+    #slide-fix {
+        background-image: url("./slide-mobile.png");
+    }
+    #mobile {
+        display: inline;
+        visibility: hidden;
+    }
+    #pc {
+        display: none;
+    }
+}
