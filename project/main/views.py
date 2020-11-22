@@ -85,15 +85,16 @@ def register(request):
         except:
             print("KLAS 동작에러: 과목수집 문제")
         # 과목정보 수집
-        list_sub = []
-        list_code = []
+        dic = {}
         for tmp in subs:
             tmp = tmp.text.strip().split(' ')
-            list_sub.append(tmp[0])
-            list_code.append(tmp[1].replace('(', "").replace(')', ""))
+            sub = tmp[0]
+            code = tmp[1].replace('(', "").replace(')', "")
+            dic[sub] = code
+        print(dic)
+        return render(request, 'main/register.html', dic)
     else:
-        pass # 원래 비정상 적인 접근임.
-    return render(request, 'main/register.html')
+        return render(request, 'main/register.html')
 
 def testing(request):
     return HttpResponse("수집완료-콘솔에")
