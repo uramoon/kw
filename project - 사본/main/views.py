@@ -41,13 +41,6 @@ def index(request):
 def login(request):
     return render(request, 'main/login.html')
 
-def start(request):
-    return HttpResponse("selenium 실행 성공")
-
-def end(request):
-    driver.quit()
-    return HttpResponse("selenium 종료 성공")
-
 def testing(request):
     # 초기화
     driver.get('https://klas.kw.ac.kr/usr/cmn/login/Logout.do')
@@ -97,4 +90,4 @@ def testing(request):
         subname = tmp[0]
         subcode = tmp[1].replace('(', "").replace(')', "")
         print(subname, subcode)
-    return HttpResponse("와드")
+    return HttpResponse("수집완료-콘솔에")
