@@ -40,54 +40,60 @@ def index(request):
 
 def login(request):
     return render(request, 'main/login.html')
+    
+def register(request):
+    if request.method == "POST":
+        kid = request.POST['kid']
+        kpw = request.POST['kpw']
+
+        # 초기화
+        driver.get('https://klas.kw.ac.kr/usr/cmn/login/Logout.do')
+        driver.get('https://klas.kw.ac.kr/')
+        # 로그인
+        ele = is_located_xpath(10,'//*[@id="loginId"]')
+        if ele == -1:
+            print("KLAS 접근에러: 아이디 입력 란 없음.")
+        try:
+            driver.execute_script("arguments[0].value='" + kid + "'", ele)
+        except:
+            print("KLAS 동작에러: 아이디 입력 문제")
+            
+        ele = is_located_xpath(10,'//*[@id="loginPwd"]')
+        if ele == -1:
+            print("KLAS 접근에러: 패스워드 입력 란 없음.")
+        try:
+            driver.execute_script("arguments[0].value='" + kpw + "'", ele)
+        except:
+            print("KLAS 동작에러: 비밀번호")
+        ele = is_located_xpath(10,'/html/body/div[1]/div/div/div[2]/form/div[2]/button')
+        if ele == -1:
+            print("KLAS 접근에러: 로그인 안됨")
+        try:
+            ele.click()
+        except:
+            print("KLAS 동작에러: 로그인 안됨")
+        # 과목정보 대기
+        eles = is_located_xpaths(10,'//*[@id="appModule"]/div/div[2]/ul/li')
+        if eles == -1:
+            print("KLAS 접근에러: 과목 안나옴")
+        try:
+            html = driver.page_source
+            soup = BeautifulSoup(html, 'html.parser')
+            subs = soup.select(
+                '#appModule > div > div:nth-child(2) > ul > li > div.left'
+            )
+        except:
+            print("KLAS 동작에러: 과목수집 문제")
+        # 과목정보 수집
+        list_sub = []
+        list_code = []
+        for tmp in subs:
+            tmp = tmp.text.strip().split(' ')
+            list_sub.append(tmp[0])
+            list_code.append(tmp[1].replace('(', "").replace(')', ""))
+    else:
+        pass # 원래 비정상 적인 접근임.
+    return render(request, 'main/register.html')
 
 def testing(request):
-    # 초기화
-    driver.get('https://klas.kw.ac.kr/usr/cmn/login/Logout.do')
-    driver.get('https://klas.kw.ac.kr/')
-
-    # 로그인
-    ele = is_located_xpath(10,'//*[@id="loginId"]')
-    if ele == -1:
-        print("KLAS 접근에러: 아이디 입력 란 없음.")
-    try:
-        driver.execute_script("arguments[0].value='여기아이디'", ele)
-    except:
-        print("KLAS 동작에러: 아이디 입력 문제")
-        
-    ele = is_located_xpath(10,'//*[@id="loginPwd"]')
-    if ele == -1:
-        print("KLAS 접근에러: 패스워드 입력 란 없음.")
-    try:
-        driver.execute_script("arguments[0].value='여기비번'", ele)
-    except:
-        print("KLAS 동작에러: 비밀번호")
-        
-    ele = is_located_xpath(10,'/html/body/div[1]/div/div/div[2]/form/div[2]/button')
-    if ele == -1:
-        print("KLAS 접근에러: 로그인 안됨")
-    try:
-        ele.click()
-    except:
-        print("KLAS 동작에러: 로그인 안됨")
-        
-    # 과목정보 대기
-    eles = is_located_xpaths(10,'//*[@id="appModule"]/div/div[2]/ul/li')
-    if eles == -1:
-        print("KLAS 접근에러: 과목 안나옴")
-    try:
-        html = driver.page_source
-        soup = BeautifulSoup(html, 'html.parser')
-        subs = soup.select(
-            '#appModule > div > div:nth-child(2) > ul > li > div.left'
-        )
-    except:
-        print("KLAS 동작에러: 과목수집 문제")
-        
-    # 과목정보 수집
-    for tmp in subs:
-        tmp = tmp.text.strip().split(' ')
-        subname = tmp[0]
-        subcode = tmp[1].replace('(', "").replace(')', "")
-        print(subname, subcode)
     return HttpResponse("수집완료-콘솔에")
