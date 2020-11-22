@@ -85,16 +85,25 @@ def register(request):
         except:
             print("KLAS 동작에러: 과목수집 문제")
         # 과목정보 수집
-        dic = {}
+        list_sub = []
+        list_code = []
         for tmp in subs:
             tmp = tmp.text.strip().split(' ')
-            sub = tmp[0]
-            code = tmp[1].replace('(', "").replace(')', "")
-            dic[sub] = code
-        print(dic)
-        return render(request, 'main/register.html', dic)
+            list_sub.append(tmp[0])
+            list_code.append(tmp[1].replace('(', "").replace(')', ""))
+
+        context = {
+            'subs':list_sub,
+            'codes':list_code,
+        }
+        return render(request, 'main/register.html', context)
     else:
         return render(request, 'main/register.html')
 
 def testing(request):
-    return HttpResponse("수집완료-콘솔에")
+    context = {
+        'a':['a','b','c'],
+        'b':'c',
+    }
+    return render(request, 'main/test.html', context)
+    #return HttpResponse("수집완료-콘솔에")

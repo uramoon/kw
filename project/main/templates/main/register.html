@@ -7,12 +7,9 @@
 <!-- 메인 영역 -->
 <section class="container text-center" style="max-width:400px;">
     <h1 class="text-center my-5">가입완료</h1>
-    {% if dic %}
-    <h2>이거뜨면 일단 성공</h2>
-        {% for ele in dic %}
-            <p>{{ele}}</p>
-        {% endfor %}
-    {% endif %}
+    {% for name in subs %}
+        <h3>{{ name }}</h3>
+    {% endfor %}
         <input type="text" name="LectureName" class="form-control text-center my-2" placeholder="ID" maxlength="20">
         <input type="text" name="LectureName" class="form-control text-center my-2" placeholder="PASSWORD" maxlength="20">
         <button class="btn btn-secondary btn-block">간편가입</button>
