@@ -75,7 +75,7 @@ def register(request):
         # 과목정보 대기
         eles = is_located_xpaths(10,'//*[@id="appModule"]/div/div[2]/ul/li')
         if eles == -1:
-            print("KLAS 접근에러: 과목 안나옴")
+            return render(request, 'main/wrong.html')
         try:
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
