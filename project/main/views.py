@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib import auth
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -52,30 +54,50 @@ def register(request):
         # 로그인
         ele = is_located_xpath(10,'//*[@id="loginId"]')
         if ele == -1:
-            print("KLAS 접근에러: 아이디 입력 란 없음.")
+            context = {
+                'txt':"KLAS 접근에러: 아이디 입력 란 안뜸.",
+            }
+            return render(request, 'main/err.html', context)
         try:
             driver.execute_script("arguments[0].value='" + kid + "'", ele)
         except:
-            print("KLAS 동작에러: 아이디 입력 문제")
+            context = {
+                'txt':"KLAS 동작에러: 아이디 입력문제.",
+            }
+            return render(request, 'main/err.html', context)
             
         ele = is_located_xpath(10,'//*[@id="loginPwd"]')
         if ele == -1:
-            print("KLAS 접근에러: 패스워드 입력 란 없음.")
+            context = {
+                'txt':"KLAS 접근에러: 비밀번호 입력 란 안뜸.",
+            }
+            return render(request, 'main/err.html', context)
         try:
             driver.execute_script("arguments[0].value='" + kpw + "'", ele)
         except:
-            print("KLAS 동작에러: 비밀번호")
+            context = {
+                'txt':"KLAS 동작에러: 비밀번호",
+            }
+            return render(request, 'main/err.html', context)
         ele = is_located_xpath(10,'/html/body/div[1]/div/div/div[2]/form/div[2]/button')
         if ele == -1:
-            print("KLAS 접근에러: 로그인 안됨")
+            context = {
+                'txt':"KLAS 접근에러: 확인 버튼을 연속해서 누른 경우 발생합니다. 한 번만 누르고 기다려주세요.",
+            }
+            return render(request, 'main/err.html', context)
         try:
             ele.click()
         except:
-            print("KLAS 동작에러: 로그인 안됨")
+            context = {
+                'txt':"KLAS 접근에러: 로그인 안됨.",
+            }
+            return render(request, 'main/err.html', context)
+        
         # 과목정보 대기
-        eles = is_located_xpaths(10,'//*[@id="appModule"]/div/div[2]/ul/li')
-        if eles == -1:
+        eles = is_located_xpaths(18,'//*[@id="appModule"]/div/div[2]/ul/li')
+        if eles == -1: # 과목정보 수집을 못한다면 비밀번호 오류
             return render(request, 'main/wrong.html')
+
         try:
             html = driver.page_source
             soup = BeautifulSoup(html, 'html.parser')
@@ -83,7 +105,11 @@ def register(request):
                 '#appModule > div > div:nth-child(2) > ul > li > div.left'
             )
         except:
-            print("KLAS 동작에러: 과목수집 문제")
+            context = {
+                'txt':"KLAS 동작에러: 과목수집 안됨.",
+            }
+            return render(request, 'main/err.html', context)
+
         # 과목정보 수집
         list_sub = []
         list_code = []
@@ -96,6 +122,7 @@ def register(request):
             'subs':list_sub,
             'codes':list_code,
         }
+
         return render(request, 'main/register.html', context)
     else:
         return render(request, 'main/register.html')
