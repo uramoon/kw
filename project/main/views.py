@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -40,8 +41,31 @@ driver = webdriver.Chrome('chromedriver.exe', options=options)
 def index(request):
     return render(request, 'main/index.html')
 
-def login(request):
+def loginform(request):
     return render(request, 'main/login.html')
+
+def join(request):
+    return render(request, 'main/join.html')
+
+def welcome(request):
+    return render(request, 'main/welcome.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('main:index')
+
+def login(request):
+    if request.method == "POST":
+        id = request.POST['id']
+        pw = request.POST['pw']
+        user = auth.authenticate(request, username=id, password=pw)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('main:index')
+        else:
+            context = {'txt':'아이디 또는 비밀번호를 확인해주세요.'}
+            return render(request, 'main/login.html', context)
+    return redirect('main:loginform')
     
 def register(request):
     if request.method == "POST":
@@ -123,11 +147,18 @@ def register(request):
             'codes':list_code,
         }
 
-        return render(request, 'main/register.html', context)
+        user = User.objects.create_user(
+            username=kid,password=kpw
+        )
+        auth.login(request,user)
+        return redirect('main:welcome')
+        #return render(request, 'main/register.html', context)
     else:
         return render(request, 'main/register.html')
 
 def testing(request):
+
+
     context = {
         'a':['a','b','c'],
         'b':'c',

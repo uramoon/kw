@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    body {
+        background-image:url("{% static 'main/login_bg.png' %}");
+        background-color:#3a051f;
+  }
+</style>
+{% endblock %}
+{% block title %}간편가입{% endblock %}
+
+{% block body %}
+
+<!-- 메인 영역 -->
+<section class="container text-center" style="max-width:400px;">
+    <h1 class="text-center text-white my-5 pt-5">KLAS로 간편가입</h1>
+        <form action="{% url 'main:register' %}" method="POST">{%csrf_token%}
+            <input type="text" name="kid" class="form-control text-center my-2" placeholder="KLAS ID" maxlength="20">
+            <input type="password" name="kpw" class="form-control text-center my-2" placeholder="KLAS PASSWORD" maxlength="20">
+            <button type="submit" class="btn btn-info btn-block">가입하기</button>
+        </form>
+        <a href="{% url 'main:loginform' %}">로그인으로 전환</a>
+    </div>
+</section>
+{% endblock %}

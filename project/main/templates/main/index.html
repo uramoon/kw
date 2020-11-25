@@ -5,9 +5,22 @@
 
 {% block head %}{% endblock %}
 {% block body %}
-    {% include 'main/navbar.html' %}
-    {% include 'main/card_login.html' %}
-    <footer class="bg-dark mt-5 p-4 text-center" style="color:#ffffff;">
-        OSS 프로젝트 푸터<br>
-    </footer>
+    {% if user.is_authenticated %}
+        {% include 'main/navbar.html' %}
+        {% include 'main/card_login.html' %}
+        <footer class="bg-dark mt-5 p-4 text-center" style="color:#ffffff;">
+            OSS 프로젝트 푸터<br>
+        </footer>
+    {% else %}
+        <style>
+            body {
+                background-image:url("{% static 'main/login_bg.png' %}");
+                background-color:#3a051f;
+        }
+        </style>
+        <section class="container text-center" style="max-width:400px;">
+            <h1 class="text-center text-white my-5 pt-5">로그인이 필요합니다.</h1>
+            <a type="submit" class="btn btn-primary btn-block" href="{% url 'main:loginform' %}">이동</a>
+        </section>
+    {% endif %}
 {% endblock %}
