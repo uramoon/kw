@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <title>마이페이지</title>
+
+        <!--bootstrap core CSS-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            .navbar {
+                display: flex;
+                padding: .5rem 1rem;
+                vertical-align: middle;
+            }
+            .bg-top {
+                background-color: #3a051f !important;
+            }
+            .container {
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .contenttitle {
+                font-weight: 500;
+                font-size: 1.429rem;
+                color: #222;
+                margin-top: 0.5rem;
+            }
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+            nc {
+                font-size: 30px;
+                color:black;   
+            }
+
+            ncc {
+                font-size: 18px;
+                color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-top fixed-top" id="mainNav">
+            <div class="container">
+                <span class="navbar-brand js-scroll-trigger align-items-start" href="#" style="color:white;">Logo</span>
+                <!--Links-->
+                
+                <ul class="navbar-nav ml-auto""> <!--ml-auto 추가-->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link js-scroll-trigger" herf="#KLAS" onclick="location.href='http://klas.kw.ac.kr'">KLAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link js-scroll-trigger" herf="#내 수업" onclick="location.href='#'">내 수업</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link js-scroll-trigger" herf="#마이페이지" onclick="location.href='#'">마이페이지</a>
+                    </li>
+                    <!--Dropdown-->
+                    <li class="nav-item dropdown">
+                        <span class="nav-link dropdown-toggle" href="#" id="navbardrop"data-toggle="dropdown">커뮤니티</span>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"  href="#자유게시판" 
+                            onclick="location.href='freeboard.html'">자유게시판</a>
+                            <a class="dropdown-item"  href="#비밀게시판" 
+                            onclick="location.href='secretboard.html'">비밀게시판</a>
+                            <a class="dropdown-item"  href="#건의게시판" 
+                            onclick="location.href='sugboard.html'">건의게시판</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <section>
+            <div style="height: 10px;"></div>
+            <div class="py-4 bg-light">
+                <div class="container">
+                    <div class="card card-body content">
+                        <div>
+                            <div class="btn2Con">
+                                <p class="contenttitle">
+                                    <a href="#" class="text-white" onclick="location.href='#'">
+                                        <button type="button" class="btn text-white" style="font-size: 2rem; margin-bottom:15px; background-color: #b10058;"
+                                        href="#마이페이지" onclick="location.href='mypage.html'">마이페이지</button>
+                                    </a>
+                                    <div style="font-size: 13px; text-align: right;">
+                                        <a href="#" class="text-dark" onclick="location.href='home.html'">홈</a>
+                                         >
+                                        <a href="#" class="text-dark" onclick="location.href='mypage.html'">마이페이지</a>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="py-1">
+                                <div class="text-dark" style="padding: 35px 35px; text-align: left; margin-bottom:20px; background-clip: border-box; border: 1px solid #e5e5e5;
+                                border-radius: 10px;">
+                                    <div class="image">
+                                        <img class="image img-fluid" width="100" style="padding-left: 0.5rem; padding-bottom: 0.5rem; border-radius: 50%; border:1px solid #e5e5e5;" src="icon/png/avatar.png">
+                                    </div>
+                                    <div class="btn2Con">
+                                        <p class="contenttitle">
+                                            <div style="font-size: 15px; text-align: left; padding: 1rem;">
+                                                <nc>닉네임</nc></br >
+                                                <a href="#" class="text-danger" onclick="location.href='change.html'">
+                                                    <ncc>▶ 닉네임 수정</ncc></a>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="py-1">
+                                <div class="text-dark" style="padding: 17px 0; text-align: left; margin-bottom:20px; background-clip: border-box; border: 1px solid rgba(0,0,0,.125);
+                                border-radius: 10px;">
+                                    <div class="card card-body content" style="border: white;">
+                                        <div class="text-white" style="padding: 12px 0; text-align: center; background-clip: border-box; border: 1px solid rgba(0,0,0,.125); background:#e5e5e5;">
+                                            <nc>내가 작성한 글</nc>
+                                        </div>
+                                    </div></br >
+                                    <div style="overflow:auto;">
+                                        <ul class="menu">
+                                            <div class="item">
+                                                <div class="all">
+                                                    <a href="#모든 게시판" onclick="location.href='all.html'">
+                                                        <ncc>▶ 모든 게시판</ncc></br >
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="free">
+                                                    <a href="#나의 자유게시판" onclick="location.href='myfree.html'">
+                                                        <ncc>▶ 나의 자유게시판</ncc></br >
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="secret">
+                                                    <a href="#나의 비밀게시판" onclick="location.href='mysecret.html'">
+                                                        <ncc>▶ 나의 비밀게시판</ncc></br >
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="sug">
+                                                    <a href="#나의 건의게시판" onclick="location.href='mysug.html'">
+                                                        <ncc>▶ 나의 건의게시판</ncc></br >
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!--jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요)-->
+        <script scr="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!--Bootstrap core JavaScript-->
+        <script src="js/bootstrap.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
