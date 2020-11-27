@@ -157,8 +157,6 @@ def register(request):
         return render(request, 'main/register.html')
 
 def testing(request):
-
-
     context = {
         'a':['a','b','c'],
         'b':'c',
