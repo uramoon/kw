@@ -8,9 +8,7 @@
     {% if user.is_authenticated %}
         {% include 'main/navbar.html' %}
         {% include 'main/card_login.html' %}
-        <footer class="bg-dark mt-5 p-4 text-center" style="color:#ffffff;">
-            OSS 프로젝트 푸터<br>
-        </footer>
+        {% include 'main/footer.html' %}
     {% else %}
         <style>
             body {
