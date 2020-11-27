@@ -4,6 +4,9 @@ from . import views
 app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
+    path('post/', views.post, name='post'), #
+    path('write/', views.write, name='write'), #
+
     path('loginform/', views.loginform, name='loginform'),
     path('join/', views.join, name='join'),
     path('register/', views.register, name='register'),

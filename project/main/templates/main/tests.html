@@ -1,0 +1,78 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}OSS프로젝트{% endblock %}
+
+{% block head %}{% endblock %}
+{% block body %}
+    {% if user.is_authenticated %}
+        {% include 'main/repeat/navtop.html' %}
+        {% include 'main/repeat/navbar.html' %}
+
+        <div class="container">
+
+            <div class="row">
+                  <div class="mh-100 d-inline-block p-2" style="height:100px"></div>
+              </div>
+            
+            <div class="row">
+                  <div class="col-md-8 border-danger border-top-0 border-right-0 border-left-0 border-bottom">	
+                    <h1>자유 게시판</h1>
+                </div>
+                
+                <div class="col-md-4 border-danger border-top-0 border-right-0 border-left-0 border-bottom">	
+                    <a href="#" class="btn btn-info btn-lg btn-block">
+                          글쓰기  <i class="fas fa-pencil-alt pt-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 pt-3">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">글1</a>
+                        <a href="#" class="list-group-item list-group-item-action">글2</a>
+                        <a href="#" class="list-group-item list-group-item-action">글3</a>
+                        <a href="#" class="list-group-item list-group-item-action">글4</a>
+                        <a href="#" class="list-group-item list-group-item-action">글5</a>
+                        <a href="#" class="list-group-item list-group-item-action">글6</a>
+                        <a href="#" class="list-group-item list-group-item-action">글7</a>
+                        <a href="#" class="list-group-item list-group-item-action">글8</a>
+                        <a href="#" class="list-group-item list-group-item-action">글9</a>
+                        <a href="#" class="list-group-item list-group-item-action">글10</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 pt-3">
+                    <ul class="pagination mx-auto" style="width:216px">
+                      <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                      </ul>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+        
+
+        {% include 'main/repeat/footer.html' %}
+    {% else %}
+        <style>
+            body {
+                background-image:url("{% static 'main/login_bg.png' %}");
+                background-color:#3a051f;
+        }
+        </style>
+        <section class="container text-center" style="max-width:400px;">
+            <h1 class="text-center text-white my-5 pt-5">로그인이 필요합니다.</h1>
+            <a type="submit" class="btn btn-primary btn-block" href="{% url 'main:loginform' %}">이동</a>
+        </section>
+    {% endif %}
+{% endblock %}
+

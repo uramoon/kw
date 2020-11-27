@@ -41,18 +41,32 @@ driver = webdriver.Chrome('chromedriver.exe', options=options)
 def index(request):
     return render(request, 'main/index.html')
 
+def post(request):
+    return render(request, 'main/post/post.html')
+
+def write(request):
+    return render(request, 'main/post/write.html')
+
 def loginform(request):
-    return render(request, 'main/login.html')
+    return render(request, 'main/account/login.html')
 
 def join(request):
-    return render(request, 'main/join.html')
+    return render(request, 'main/account/join.html')
 
 def welcome(request):
-    return render(request, 'main/welcome.html')
+    return render(request, 'main/account/welcome.html')
 
 def logout(request):
     auth.logout(request)
     return redirect('main:index')
+    
+def testing(request):
+    context = {
+        'a':['a','b','c'],
+        'b':'c',
+    }
+    return render(request, 'main/tests.html', context)
+    #return HttpResponse("수집완료-콘솔에")
 
 def login(request):
     if request.method == "POST":
@@ -64,7 +78,7 @@ def login(request):
             return redirect('main:index')
         else:
             context = {'txt':'아이디 또는 비밀번호를 확인해주세요.'}
-            return render(request, 'main/login.html', context)
+            return render(request, 'main/account/login.html', context)
     return redirect('main:loginform')
     
 def register(request):
@@ -81,46 +95,46 @@ def register(request):
             context = {
                 'txt':"KLAS 접근에러: 아이디 입력 란 안뜸.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
         try:
             driver.execute_script("arguments[0].value='" + kid + "'", ele)
         except:
             context = {
                 'txt':"KLAS 동작에러: 아이디 입력문제.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
             
         ele = is_located_xpath(10,'//*[@id="loginPwd"]')
         if ele == -1:
             context = {
                 'txt':"KLAS 접근에러: 비밀번호 입력 란 안뜸.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
         try:
             driver.execute_script("arguments[0].value='" + kpw + "'", ele)
         except:
             context = {
                 'txt':"KLAS 동작에러: 비밀번호",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
         ele = is_located_xpath(10,'/html/body/div[1]/div/div/div[2]/form/div[2]/button')
         if ele == -1:
             context = {
                 'txt':"KLAS 접근에러: 확인 버튼을 연속해서 누른 경우 발생합니다. 한 번만 누르고 기다려주세요.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
         try:
             ele.click()
         except:
             context = {
                 'txt':"KLAS 접근에러: 로그인 안됨.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
         
         # 과목정보 대기
         eles = is_located_xpaths(18,'//*[@id="appModule"]/div/div[2]/ul/li')
         if eles == -1: # 과목정보 수집을 못한다면 비밀번호 오류
-            return render(request, 'main/wrong.html')
+            return render(request, 'main/account/wrong.html')
 
         try:
             html = driver.page_source
@@ -132,7 +146,7 @@ def register(request):
             context = {
                 'txt':"KLAS 동작에러: 과목수집 안됨.",
             }
-            return render(request, 'main/err.html', context)
+            return render(request, 'main/repeat/err.html', context)
 
         # 과목정보 수집
         list_sub = []
@@ -154,12 +168,4 @@ def register(request):
         return redirect('main:welcome')
         #return render(request, 'main/register.html', context)
     else:
-        return render(request, 'main/register.html')
-
-def testing(request):
-    context = {
-        'a':['a','b','c'],
-        'b':'c',
-    }
-    return render(request, 'main/test.html', context)
-    #return HttpResponse("수집완료-콘솔에")
+        return render(request, 'main/account/register.html')
