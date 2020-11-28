@@ -90,6 +90,7 @@ def subpost(request, code, post_id):
 
 def board(request, board_id):
     #posts = Post.objects.order_by('-pub_date')
+    
     posts = Post.objects.filter(board=board_id)
     context = {
         'posts':posts,

@@ -1,0 +1,83 @@
+        <style>
+            .navbar {
+                display: flex;
+                padding: .5rem 1rem;
+                vertical-align: middle;
+            }
+            .bg-top {
+                background-color: #3a051f !important;
+            }
+            .container {
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .contenttitle {
+                font-weight: 500;
+                font-size: 1.429rem;
+                color: #222;
+                margin-top: 0.5rem;
+            }
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+            nc {
+                font-size: 30px;
+                color:black;   
+            }
+
+            ncc {
+                font-size: 18px;
+                color:black;
+            }
+        </style>
+        
+        <section>
+            <div style="height: 10px;"></div>
+            <div class="py-4 bg-light">
+                <div class="container">
+                    <div class="card card-body content">
+                        <div>
+                            <div class="btn2Con">
+                                <p class="contenttitle">
+
+                                    <div style="font-size: 13px; text-align: right;">
+                                        <a href="#" class="text-dark" onclick="location.href='home.html'">홈</a>
+                                         >
+                                        <a href="#" class="text-dark" onclick="location.href='mypage.html'">마이페이지</a>
+                                    </div>
+                                </p>
+                            </div>
+                            
+                            <div class="py-1">
+                                <div class="text-dark" style="padding: 17px 0; text-align: left; margin-bottom:20px; background-clip: border-box; border: 1px solid rgba(0,0,0,.125);
+                                border-radius: 10px;">
+                                    <div class="card card-body content" style="border: white;">
+                                        <div class="text-white" style="padding: 12px 0; text-align: center; background-clip: border-box; border: 1px solid rgba(0,0,0,.125); background:#e5e5e5;">
+                                            <nc>수강과목</nc>
+                                        </div>
+                                    </div></br >
+                                    <div style="overflow:auto;">
+                                        <ul class="menu">
+                                            {% for subject in user.subject_set.all %}
+                                            <div class="item">
+                                                <div class="all">
+                                                    <a>
+                                                        <ncc>{{subject.name}}</ncc></br >
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </ul>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
