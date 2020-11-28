@@ -22,6 +22,8 @@
 * 설치가 완료됐다면 cmd 또는 anaconda prompt등 적절한 터미널을 통해 프로젝트 폴더(manage.py가 있는 폴더)로 이동합니다.
 * python manage.py runserver를 통해 테스트 서버를 열 수 있습니다.
 * 주소창에 127.0.0.1:8000/main을 입력하여 구현한 부분까지 볼 수 있습니다.
+* 자신 뿐 아니라 외부에서 접속 가능한 서버를 열려면 project > project > settings.py에서 ALLOWED_HOSTS애 자신의 외부 아이피를 넣습니다. 그리고 터미널에서 python manage.py runserver 0.0.0.0:80을 입력합니다.
+* 이제 주소창에 외부아이피주소/main을 치면 테스트 서버를 볼 수 있습니다.
 
 4. 사용 방법
 * 첫 가입시에는 기존 KLAS 아이디와 비밀번호를 입력하여 간편가입을 한다.
