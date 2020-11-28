@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.utils import timezone
+
+from .models import Post, Subject, Blog
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -39,13 +42,85 @@ driver = webdriver.Chrome('chromedriver.exe', options=options)
 
 # Create your views here.
 def index(request):
-    return render(request, 'main/index.html')
+    return redirect('/main/0')
 
-def post(request):
-    return render(request, 'main/post/post.html')
+def nav(request, nav_id):
+    context={'n'+str(nav_id):'1',}
+    return render(request, 'main/index.html', context)
 
-def write(request):
-    return render(request, 'main/post/write.html')
+def post(request, board_id, post_id):
+    detail = get_object_or_404(Post, pk=post_id)
+    context = {
+        'post':detail,
+        'board_id':board_id,
+    }
+    return render(request, 'main/post/post.html', context)
+
+def subject(request, code):
+    blogs = Blog.objects.filter(code=code)
+    context = {
+        'blogs':blogs,
+        'code':code,
+    }
+    return render(request, 'main/subject/list.html', context)
+
+def subwrite(request, code):
+    if request.method == "POST":
+        blog = Blog()
+        blog.title = request.POST.get('title')
+        blog.body = request.POST.get('body')
+        blog.code = code
+        blog.name = ""
+        blog.pub_date = timezone.datetime.now()
+        blog.save()
+        return redirect('/main/subject/' + code)
+    else:
+        context = {
+            'code':code,
+        }
+        return render(request, 'main/subject/write.html', context)
+
+def subpost(request, code, post_id):
+    detail = get_object_or_404(Blog, pk=post_id) 
+    context = {
+        'post':detail,
+        'code':code,
+    }#여까지 OK
+    return render(request, 'main/subject/post.html', context)
+
+def board(request, board_id):
+    #posts = Post.objects.order_by('-pub_date')
+    posts = Post.objects.filter(board=board_id)
+    context = {
+        'posts':posts,
+        'board_id':board_id,
+        'n1':'1',
+    }
+    if board_id == 1:
+        context['title']='자유게시판'
+        context['body']='자유게시판은 실명제로 교내외 활동과 관련된 정보 공유 및 개인의 의견을 담은 게시물을 올릴 수 있습니다.'
+    elif board_id == 2:
+        context['title']='비밀게시판'
+        context['body']='익명으로 소통하는 게시판입니다.'
+    elif board_id == 3:
+        context['title']='건의게시판'
+        context['body']='커뮤니티에 관한 불만사항, 건의사항, 개선아이디어 등 커뮤니티와 관련된 모든 사항을 자유롭게 올려주세요.'
+    return render(request, 'main/post/list.html', context)
+
+def write(request, board_id):
+    if request.method == "POST":
+        post = Post()
+        post.title = request.POST.get('title')
+        post.body = request.POST.get('body')
+        post.pub_date = timezone.datetime.now()
+        post.board = board_id
+        post.save()
+        return redirect('/main/board/' + board_id)
+    else:
+        context = {
+            'board_id':board_id,
+        }
+        return render(request, 'main/post/write.html', context)
 
 def loginform(request):
     return render(request, 'main/account/login.html')
@@ -60,12 +135,11 @@ def logout(request):
     auth.logout(request)
     return redirect('main:index')
     
-def testing(request):
+def testing(request, name):
     context = {
-        'a':['a','b','c'],
-        'b':'c',
+        {'name':name,}
     }
-    return render(request, 'main/tests.html', context)
+    return render(request, 'main/test.html', context)
     #return HttpResponse("수집완료-콘솔에")
 
 def login(request):
@@ -156,15 +230,18 @@ def register(request):
             list_sub.append(tmp[0])
             list_code.append(tmp[1].replace('(', "").replace(')', ""))
 
-        context = {
-            'subs':list_sub,
-            'codes':list_code,
-        }
-
         user = User.objects.create_user(
             username=kid,password=kpw
         )
-        auth.login(request,user)
+
+        for i in range(len(list_sub)):
+            subject = Subject()
+            subject.user = user
+            subject.name = list_sub[i]
+            subject.code = list_code[i]
+            subject.save()
+
+        auth.login(request,user)      
         return redirect('main:welcome')
         #return render(request, 'main/register.html', context)
     else:

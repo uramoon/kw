@@ -10,7 +10,6 @@
         {% include 'main/repeat/navbar.html' %}
         <div class="container border bg-white mt-5">
             <!--게시판 이름 게시판 마다 수정-->
-
             
             <!--게시판 제목 밑 데이터 받아와야할것-->
             <div class="row pt-3 pr-4 pl-4">
@@ -33,7 +32,7 @@
             <div class="row pt-3 pr-4 pl-4">
                 <div class="col-md-12">
                   <div class="float-md-right pb-4 ">
-                    <a href="{% url 'main:board' board_id %}" class="btn btn-secondary ">목록</a>
+                    <a href="{% url 'main:subject' code %}" class="btn btn-secondary ">목록</a>
                   </div>
                 </div>
             </div>

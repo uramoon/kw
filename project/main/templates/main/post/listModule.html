@@ -1,14 +1,3 @@
-{% extends "main/base.html" %}
-{% load static %}
-
-{% block title %}OSS프로젝트{% endblock %}
-
-{% block head %}{% endblock %}
-{% block body %}
-    {% if user.is_authenticated %}
-        {% include 'main/repeat/navtop.html' %}
-        {% include 'main/repeat/navbar.html' %}
-
         <style>
             .navbar {
                 height: 60px;
@@ -49,14 +38,6 @@
                 list-style: none;
                 float: left;
                 margin: 0 5px 3px 0;
-            }
-            .con_search ul li input[type="text"] {
-                list-style: none;
-                height: 31px;
-                border: 1px solid #d4d4d4;
-                letter-spacing: -0.03em;
-                padding: 0 0 0 10px;
-                width: 400px;
             }
             .gall_list {
                 width: 100%;
@@ -101,6 +82,8 @@
                 margin: 20px auto 0;
             }
         </style>
+
+    <body>
         <section>
             <div></div>
             <div class="py-4 bg-light">
@@ -110,17 +93,18 @@
                         <div class="btn2Con">
                             <p class="contenttitle">
                                 <div style="font-size: 13px; text-align: right;">
-                                    <a href="#" class="text-dark" onclick="location.href='home.html'">홈</a>
-                                     >
-                                    <a href="#" class="text-dark" onclick="location.href='freeboard.html'">커뮤니티</a>
-                                     > 자유게시판
+                                    <a class="text-dark" onclick="location.href='home.html'">홈</a>
+                                        >
+                                    <a class="text-dark" onclick="location.href='freeboard.html'">커뮤니티</a>
+                                        > {{title}}
                                 </div>
                             </p>
                         </div>
                         <div class="py-1">
                             <div class="bg-secondary text-white" style="padding: 17px 0; text-align: center;">
-                                <h5>자유 게시판 안내</h5>
-                                자유게시판은 실명제로 교내외 활동과 관련된 정보 공유 및 개인의 의견을 담은 게시물을 올릴 수 있습니다.
+
+                                <h5>{{title}} 안내</h5>
+                                {{body}}
                             </div>
                         </div>
                         </div>
@@ -128,10 +112,8 @@
                             <colgroup>
                                 <col style="width: 10%;">
                                 <col>
-                                <col style="width: 12%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -139,75 +121,44 @@
                                     <th scope="col">제목</th>
                                     <th scope="col">작성자</th>
                                     <th scope="col">작성일</th>
-                                    <th scope="col">조회</th>
-                                    <th scope="col">추천</th>
                                 </tr>
                                 <tbody>
                                     <!--<tr>
                                         <td colspan="6" class="disnone">게시물 없음.</td>
                                     </tr>-->
-                                    <tr>
-                                        <td>
-                                            <span>4</span>
-                                        </td>
-                                        <td class="lft" style="cursor: pointer;">게시물4</td>
-                                        <td scope="col">배</td>
-                                        <td scope="col">2020-11-23</td>
-                                        <td scope="col">30</td>
-                                        <td scope="col">50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>3</span>
-                                        </td>
-                                        <td class="lft" style="cursor: pointer;">게시물3</td>
-                                        <td scope="col">딸기</td>
-                                        <td scope="col">2020-11-20</td>
-                                        <td scope="col">22</td>
-                                        <td scope="col">3</td>
-                                    </tr>
 
+                                    {% for post in posts.all %}
+                                    <tr onclick="location.href='{% url 'main:post' board_id post.id %}'" style="cursor: pointer;">
+                                        <!-- 개발툴에서는 윗줄이 오류로 인식될 수도 있지만 Django Template언어가 섞여있어서 알아서 정상 처리됨. -->
+                                        <td>
+                                            <span>{{post.id}}</span>
+                                        </td>
+                                        <td class="lft">{{post.title}}</td>
+                                        <td scope="col">익명</td>
+                                        <td scope="col">{{post.pub_date}}</td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </thead>
                         </table>
                         <div class="btnCon">
-                            <button type="button" class="btn btn-secondary">글쓰기</button>
+                            {% if board_id == 1 %}
+                            <a href="{% url 'main:board' 2 %}" class="btn btn-secondary">비밀게시판</a>
+                            <a href="{% url 'main:board' 3 %}" class="btn btn-secondary">건의게시판</a>
+                            <a href="{% url 'main:write' board_id %}" class="btn btn-info">글쓰기</a>
+                            {% elif board_id == 2 %}
+                            <a href="{% url 'main:board' 1 %}" class="btn btn-secondary">자유게시판</a>
+                            <a href="{% url 'main:board' 3 %}" class="btn btn-secondary">건의게시판</a>
+                            <a href="{% url 'main:write' board_id %}" class="btn btn-info">글쓰기</a>
+                            {% elif board_id == 3 %}
+                            <a href="{% url 'main:board' 1 %}" class="btn btn-secondary">자유게시판</a>
+                            <a href="{% url 'main:board' 2 %}" class="btn btn-secondary">비밀게시판</a>
+                            <a href="{% url 'main:write' board_id %}" class="btn btn-info">글쓰기</a>
+                            {% endif %}
                         </div>
-                        <ul class="pagination pagination-sm justify-content-center">
-                            <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                        </ul>
-                        <div class="con_search">
-                            <ul>
-                                <li>
-                                    <input type="text" maxlength="50" placeholder="검색어입력">
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-secondary">검색</button>
-                                </li>
-                            </ul>
-                        </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
-
-        {% include 'main/repeat/footer.html' %}
-    {% else %}
-        <style>
-            body {
-                background-image:url("{% static 'main/login_bg.png' %}");
-                background-color:#3a051f;
-        }
-        </style>
-        <section class="container text-center" style="max-width:400px;">
-            <h1 class="text-center text-white my-5 pt-5">로그인이 필요합니다.</h1>
-            <a type="submit" class="btn btn-primary btn-block" href="{% url 'main:loginform' %}">이동</a>
-        </section>
-    {% endif %}
-{% endblock %}
-
+    </body>

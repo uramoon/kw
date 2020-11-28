@@ -2,26 +2,26 @@
     <!--navbar navbar-expand-lg navbar-dark bg-info-->
     <div class="collapse navbar-collapse" id="inside">
         <ul class="navbar-nav mx-auto isl" id="nav">
-            <li class="nav-item mx-2 my-auto">
-                <a class="nav-link px-2 py-1 text-center" href="https://klas.kw.ac.kr/">
-                    <i class="fab fa-kickstarter pt-1" style="font-size:1.8em;"></i>
-                    <p class="nav-link my-0 px-0 pt-1 pb-0" href="">KLAS</p>
+            <li class="nav-item mx-2 my-auto {% if n0 %}activate{% endif %}">
+                <a class="nav-link px-2 py-1 text-center" href="{% url 'main:nav' 0 %}">
+                    <i class="fas fa-book pt-1" style="font-size:1.8em;"></i>
+                    <p class="nav-link my-0 px-0 pt-1 pb-0" href="">내 수업</p>
                 </a>
             </li>
-            <li class="nav-item mx-2 my-auto">
-                <a class="nav-link px-2 py-1 text-center" href="">
+            <li class="nav-item mx-2 my-auto {% if n1 %}activate{% endif %}">
+                <a class="nav-link px-2 py-1 text-center" href="{% url 'main:board' 1 %}">
                     <i class="fas fa-comments pt-1" style="font-size:1.8em;"></i>
                     <p class="nav-link my-0 px-0 pt-1 pb-0" href="">커뮤니티</p>
                 </a>
             </li>
             <li class="nav-item mx-2 my-auto">
-                <a class="nav-link px-2 py-1 text-center" href="">
-                    <i class="fas fa-book pt-1" style="font-size:1.8em;"></i>
-                    <p class="nav-link my-0 px-0 pt-1 pb-0" href="">내 수업</p>
+                <a class="nav-link px-2 py-1 text-center" target="_blank" href="https://klas.kw.ac.kr/">
+                    <i class="fab fa-kickstarter pt-1" style="font-size:1.8em;"></i>
+                    <p class="nav-link my-0 px-0 pt-1 pb-0" href="">KLAS</p>
                 </a>
             </li>
-            <li class="nav-item mx-2 my-auto">
-                <a class="nav-link px-2 py-1 text-center" href="">
+            <li class="nav-item mx-2 my-auto {% if n2 %}activate{% endif %}">
+                <a class="nav-link px-2 py-1 text-center" href="{% url 'main:nav' 2 %}">
                     <i class="fas fa-user-circle pt-1" style="font-size:1.8em;"></i>
                     <p class="nav-link my-0 px-0 pt-1 pb-0" href="">프로필</p>
                 </a>

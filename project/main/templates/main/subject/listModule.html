@@ -1,0 +1,139 @@
+        <style>
+            .navbar {
+                height: 60px;
+                display: flex;
+                padding: .5rem 1rem;
+            }
+            .bg-top {
+                background-color: #3a051f !important;
+            }
+            .container {
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .mg0 {
+                margin: 0px;
+            }
+            .contenttitle {
+                font-weight: 500;
+                font-size: 1.429rem;
+                color: #222;
+                margin-top: 0.5rem;
+            }
+            .con_search {
+                border: 2px solid #d5d5d5;
+                padding: 0.5rem 0.5rem 0 0.5rem;
+                background: #fdfbfc;
+                margin-bottom: 20px;
+            }
+            .con_search ul {
+                list-style: none;
+                display: table;
+                margin: 0 auto;
+            }
+            .con_search ul li {
+                list-style: none;
+                float: left;
+                margin: 0 5px 3px 0;
+            }
+            .gall_list {
+                width: 100%;
+                border-bottom: 1px solid #333;
+            }
+            th {
+                height: 37px;
+                border-width: 2px 0 1px;
+                border-style: solid;
+                border-color: #333;
+                vertical-align: middle;
+                text-align: center;
+                color: #333;
+            }
+            td {
+                text-align: center;
+                padding: 8px;
+                background: #ffffff;
+                border-bottom: 1px solid #e7e7e7;
+                border-left: 0px solid #dde2e8;
+                vertical-align: middle;
+                line-height: 24px;
+            }
+            td.lft {
+                padding-left: 15px;
+                text-align: left;
+            }
+            .btnCon {
+                text-align: right;
+                margin: 0.5rem 0;
+                position: relative;
+                display: block;
+            }
+            .btn2Con {
+                text-align: left;
+                margin: 0.5rem 0;
+                position: relative;
+                display: block;
+            }
+            .button_search_wrap {
+                width: 451px;
+                margin: 20px auto 0;
+            }
+        </style>
+
+    <body>
+        <section>
+            <div></div>
+            <div class="py-4 bg-light">
+                <div class="container">
+                    <div class="card card-body content">
+                        <div>
+                        <div class="py-1">
+                            <div class="bg-secondary text-white" style="padding: 17px 0; text-align: center;">
+                                <h5>{{code}}</h5>
+                            </div>
+                        </div>
+                        </div>
+                        <table class="gall_list">
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col>
+                                <col style="width: 20%;">
+                                <col style="width: 20%;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">작성일</th>
+                                </tr>
+                                <tbody>
+                                    <!--<tr>
+                                        <td colspan="6" class="disnone">게시물 없음.</td>
+                                    </tr>-->
+
+                                    {% for blog in blogs.all %}
+                                    <tr onclick="location.href='{% url 'main:subpost' code blog.id %}'" style="cursor: pointer;">
+                                        <!-- 개발툴에서는 윗줄이 오류로 인식될 수도 있지만 Django Template언어가 섞여있어서 알아서 정상 처리됨. -->
+                                        <td>
+                                            <span>{{blog.id}}</span>
+                                        </td>
+                                        <td class="lft">{{blog.title}}</td>
+                                        <td scope="col">익명</td>
+                                        <td scope="col">{{blog.pub_date}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </thead>
+                        </table>
+                        <div class="btnCon">
+                            <a href="{% url 'main:subwrite' code %}" class="btn btn-info">글쓰기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>

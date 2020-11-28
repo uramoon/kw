@@ -58,10 +58,9 @@ nav a {
 }
 /* .nav-tp a {color: rgb(211, 211, 211) !important;} */
 
-nav a:hover, nav a:hover > p {color:white !important;}
-/* .nav-tp a:hover {color:white !important;} */
 
-nav .active > a, nav .active > a > p {color:white !important;}
+nav .activate i, nav .activate p { color:white !important;}
+
 
 .font-small {
     font-family: 'Nanum Gothic';
