@@ -116,7 +116,7 @@ def write(request, board_id):
         post.pub_date = timezone.datetime.now()
         post.board = board_id
         post.save()
-        return redirect('/main/board/' + board_id)
+        return redirect('/main/board/' + str(board_id))
     else:
         context = {
             'board_id':board_id,
