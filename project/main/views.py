@@ -99,7 +99,7 @@ def board(request, board_id):
     }
     if board_id == 1:
         context['title']='자유게시판'
-        context['body']='자유게시판은 실명제로 교내외 활동과 관련된 정보 공유 및 개인의 의견을 담은 게시물을 올릴 수 있습니다.'
+        context['body']='자유게시판은 교내외 활동과 관련된 정보 공유 및 개인의 의견을 담은 게시물을 올릴 수 있습니다.'
     elif board_id == 2:
         context['title']='비밀게시판'
         context['body']='익명으로 소통하는 게시판입니다.'
